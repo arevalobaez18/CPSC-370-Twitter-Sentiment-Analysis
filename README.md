@@ -2,6 +2,13 @@
 
 This project is a real-time sentiment analysis tool for text data, built using Python, scikit-learn, and Streamlit. It leverages the Sentiment140 dataset to train a machine learning model that classifies input text as **Negative**, **Neutral**, or **Positive**.
 
+## Live Demo
+
+Try out the deployed web application here:  
+[Twitter Sentiment Analysis App](https://cpsc-370-twitter-sentiment-analysis-7snkn9ohtyyehzwcyovbop.streamlit.app/)
+
+Explore the real-time sentiment analysis tool, view model performance metrics, and test the app with your own text inputs.
+
 ## Features
 
 - **Real-time Sentiment Prediction**: Enter any text and instantly see its predicted sentiment.
