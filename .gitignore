@@ -11,12 +11,15 @@ __pycache__/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
 
-# Model and data files (keep sentiment_model.pkl if needed for deployment)
+# Model and data files (keep sentiment_model.pkl and vectorizer.pkl if needed for deployment)
 *.pkl
 *.joblib
+!models/sentiment_model.pkl
+!models/vectorizer.pkl
 
 # Large datasets
-training.1600000.processed.noemoticon.csv
+data/training.1600000.processed.noemoticon.csv
+data/testdata.manual.2009.06.14.csv
 
 # OS files
 .DS_Store
@@ -28,8 +31,16 @@ Thumbs.db
 *.swp
 *.swo
 
-# Streamlit logs
+# Streamlit logs and cache
 .streamlit/
+**/.streamlit/
 
 # Environment variables
 .env
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
