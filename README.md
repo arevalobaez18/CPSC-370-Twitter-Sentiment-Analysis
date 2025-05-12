@@ -1,5 +1,12 @@
 # Twitter Sentiment Analysis Application
 
+## Author
+
+Jesse Arevalo Baez <br>
+2399233 <br>
+arevalobaez@chapman.edu <br>
+CPSC 370-06
+
 This project is a real-time sentiment analysis tool for text data, built using Python, scikit-learn, and Streamlit. It leverages the Sentiment140 dataset to train a machine learning model that classifies input text as **Negative**, **Neutral**, or **Positive**.
 
 ## Live Demo
