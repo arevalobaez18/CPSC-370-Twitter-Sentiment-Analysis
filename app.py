@@ -1,5 +1,4 @@
 # app.py
-# app.py
 import streamlit as st # For creating the web app
 import joblib # For loading the model and vectorizer
 import json # Used to store model performance metrics
