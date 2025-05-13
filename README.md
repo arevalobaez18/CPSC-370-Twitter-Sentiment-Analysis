@@ -92,6 +92,56 @@ This script runs the Streamlit web application for real-time sentiment analysis.
 
 ![Model Metrics](images/model_metrics.png)
 
+## Setting Up the Project
+
+Follow these steps to set up the project after pulling it from GitHub:
+
+1. **Clone the Repository**  
+   Clone the repository to your local machine using the following command:
+
+   ```bash
+   git clone https://github.com/arevalobaez18/CPSC-370-Twitter-Sentiment-Analysis.git
+   cd CPSC-370-Twitter-Sentiment-Analysis
+   ```
+
+   Alternatively, you can also download a ZIP of it straight from github.
+
+2. **Create a Virtual Environment**  
+   It is recommended to use a virtual environment to manage dependencies:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On macOS/Linux
+   venv\Scripts\activate     # On Windows
+   ```
+
+3. **Install Dependencies**  
+   Install the required Python packages listed in the `requirements.txt` file:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Application**  
+   Start the Streamlit application:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+5. **Access the App**  
+   Open your browser and navigate to the URL provided by Streamlit (usually `http://localhost:8501`).
+
+6. **Optional: Train the Model**  
+   If you want to retrain the model, run the `train_model.py` script:
+
+   ```bash
+   python train_model.py
+   ```
+
+   This will generate the model, vectorizer, and metrics files in the `models/` directory.
+   **YOU MUST HAVE THE DATASETS WITHIN THE `/data` DIRECTORY FOR THE MODEL TO BE TRAINED**
+
 ## Acknowledgments
 
 - [Streamlit](https://streamlit.io/): An open-source app framework for Machine Learning and Data Science projects, enabling the creation of interactive web applications with minimal effort.
