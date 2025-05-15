@@ -31,11 +31,14 @@ Explore the real-time sentiment analysis tool, view model performance metrics, a
 ├── train_model.py              # Script to train and save the sentiment model
 ├── models/                     # Directory containing the saved model, vectorizer, and metrics
 │   ├── sentiment_model.pkl     # Saved logistic regression model
-│   ├── vectorizer.pkl          # Saved CountVectorizer
-│   └── metrics.json            # Model performance metrics (accuracy, precision, recall)
+│   ├── vectorizer.pkl          # Saved TfidfVectorizer
+│   ├── metrics.json            # Model performance metrics (accuracy, precision, recall)
+│   └── metadata.json           # Model metadata (training date, dataset size, etc.)
 ├── data/                       # Directory for datasets
-│   ├── testdata.manual.2009.06.14.csv  # Manual test dataset
-│   └── training.1600000.processed.noemoticon.csv  # Sentiment140 dataset (not included)
+│   ├── testdata.manual.2009.06.14.csv              # Manual test dataset
+│   └── training.1600000.processed.noemoticon.csv   # Sentiment140 dataset (not included)
+├── TestCases.txt               # Example test cases for model evaluation
+├── images/                     # Screenshots and images for documentation
 └── README.md                   # Project documentation
 ```
 
@@ -141,6 +144,41 @@ Follow these steps to set up the project after pulling it from GitHub:
 
    This will generate the model, vectorizer, and metrics files in the `models/` directory.
    **YOU MUST HAVE THE DATASETS WITHIN THE `/data` DIRECTORY FOR THE MODEL TO BE TRAINED**
+
+## Test Cases
+
+A set of test input examples is provided to help evaluate the model's sentiment predictions. These cases cover a variety of real-world and edge-case scenarios, including neutral statements that are often challenging for sentiment models. You can use these to manually or programmatically test the model's accuracy and its ability to distinguish between Negative, Neutral, and Positive sentiments.
+
+**Example Test Cases:**
+
+| Input Text                                                                                                                           | Expected Sentiment |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------ |
+| “Oh fantastic, another bug. Just what I needed.”                                                                                     | Negative           |
+| “The design is beautiful, but the app crashes too much.”                                                                             | Negative           |
+| “I don’t hate it.”                                                                                                                   | Positive           |
+| “I used the app yesterday.”                                                                                                          | Neutral            |
+| “Terrible.”                                                                                                                          | Negative           |
+| “Amazing experience!”                                                                                                                | Positive           |
+| “Gr8 job guys, luv this app!”                                                                                                        | Positive           |
+| “Ths thing sux.”                                                                                                                     | Negative           |
+| “Customer acquisition cost is too high for this to scale.”                                                                           | Negative           |
+| “The campaign ROI exceeded expectations.”                                                                                            | Positive           |
+| “Yeah, this app is so fast — it only froze five times today.”                                                                        | Negative           |
+| “The customer service was slow, but the representative was kind.”                                                                    | Neutral            |
+| “It’s not bad at all.”                                                                                                               | Positive           |
+| “I wouldn’t say it’s great.”                                                                                                         | Neutral            |
+| “meh.”                                                                                                                               | Negative           |
+| “The user clicked the button three times.”                                                                                           | Neutral            |
+| “The onboarding was clear, the UI was polished, and overall the app functioned well — though it could use a few speed improvements.” | Positive           |
+| “This update is a huge improvement!”                                                                                                 | Positive           |
+| “Could be worse, I guess.”                                                                                                           | Neutral            |
+| “Worst. App. Ever.”                                                                                                                  | Negative           |
+
+You can find these test cases in the `TestCases.txt` file. They are useful for validating the model's performance, especially for neutral sentiment detection.
+
+## Limitations
+
+While the model performs well on positive and negative sentiment detection, **neutral sentiment detection remains a challenge**. This is primarily due to the lack of neutral-labeled examples in the available datasets, such as Sentiment140, which contains very few tweets labeled as neutral. As a result, the model may misclassify neutral statements as either positive or negative, especially for subtle or ambiguous cases. Improving neutral sentiment detection would require a larger and more balanced dataset with a significant number of neutral examples.
 
 ## Acknowledgments
 
