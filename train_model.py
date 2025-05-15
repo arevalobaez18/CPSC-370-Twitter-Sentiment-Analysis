@@ -2,10 +2,11 @@
 import os # For file path handling
 import pandas as pd # For data manipulation
 import re # For text preprocessing
-from sklearn.feature_extraction.text import CountVectorizer # For text vectorization
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split # For splitting the dataset
 from sklearn.linear_model import LogisticRegression # For logistic regression model
 from sklearn.metrics import classification_report   # For model evaluation
+from sklearn.utils import resample # For handling class imbalance
 import joblib # For saving the model and vectorizer
 import json  # Used to store model performance metrics
 
@@ -44,19 +45,39 @@ large_df["text"] = large_df["text"].apply(clean_text)
 # Merge the datasets
 combined_df = pd.concat([manual_df, large_df], ignore_index=True)
 
+# This is an attempt to have better accuracy and better neutral detection. So far still does not work.
+# Resample to balance classes
+df_negative = combined_df[combined_df["sentiment"] == 0]
+df_neutral = combined_df[combined_df["sentiment"] == 2]
+df_positive = combined_df[combined_df["sentiment"] == 4]
+
+# Find the maximum class size
+max_size = max(len(df_negative), len(df_neutral), len(df_positive))
+
+# Upsample minority classes
+df_negative_upsampled = resample(df_negative, replace=True, n_samples=max_size, random_state=42)
+df_neutral_upsampled = resample(df_neutral, replace=True, n_samples=max_size, random_state=42)
+df_positive_upsampled = resample(df_positive, replace=True, n_samples=max_size, random_state=42)
+
+# Combine upsampled data
+balanced_df = pd.concat([df_negative_upsampled, df_neutral_upsampled, df_positive_upsampled])
+
+# Shuffle the balanced dataset
+balanced_df = balanced_df.sample(frac=1, random_state=42).reset_index(drop=True)
+
 # Features and labels
-X = combined_df["text"]
-y = combined_df["sentiment"]
+X = balanced_df["text"]
+y = balanced_df["sentiment"]
 
 # Vectorization
-vectorizer = CountVectorizer(stop_words="english", max_features=5000)
+vectorizer = TfidfVectorizer(stop_words="english", max_features=7000, ngram_range=(1,2))
 X_vectorized = vectorizer.fit_transform(X)
 
 # Train/test split
 X_train, X_test, y_train, y_test = train_test_split(X_vectorized, y, test_size=0.2, random_state=42)
 
-# Train logistic regression
-model = LogisticRegression(max_iter=1000, solver='lbfgs')
+# Train logistic regression with balanced class weights
+model = LogisticRegression(max_iter=1000, solver='lbfgs', class_weight='balanced')
 model.fit(X_train, y_train)
 
 # Evaluate the model
